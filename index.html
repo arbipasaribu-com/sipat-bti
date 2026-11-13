@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIPAT-BTI | Peminjaman & Inventaris Alat Bengkel TI</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<section id="login" class="login" hidden>
+  <form class="card" onsubmit="return doLogin(event)">
+    <h1>SIPAT-BTI</h1>
+    <p class="mut">Sistem Informasi Peminjaman dan Inventaris Alat Bengkel TI</p>
+    <label>Username<input name="u" required autocomplete="username"></label>
+    <label>Password<input name="p" type="password" required autocomplete="current-password"></label>
+    <button class="btn">Masuk</button>
+    <p class="mut small">Akun demo (klik untuk mengisi):</p>
+    <div id="demoAcc" class="chips"></div>
+  </form>
+</section>
+<div id="app" class="app" hidden>
+  <aside><h2>SIPAT-BTI</h2><div id="who" class="mut small"></div><nav id="nav"></nav>
+    <button class="btn ghost" onclick="logout()">Keluar</button>
+    <button class="btn ghost" id="resetBtn" onclick="resetDemo()" hidden>Reset data demo</button>
+  </aside>
+  <main><h1 id="title"></h1><div id="view"></div></main>
+</div>
+<dialog id="dlg"></dialog>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

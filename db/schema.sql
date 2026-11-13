@@ -1,0 +1,8 @@
+-- Rancangan database produksi (MySQL) sesuai dokumen analisis. Versi demo memakai localStorage.
+CREATE TABLE users (user_id INT AUTO_INCREMENT PRIMARY KEY, nama VARCHAR(100), username VARCHAR(50) UNIQUE, password_hash VARCHAR(255), role ENUM('admin','plp','guru','kepala'), status TINYINT DEFAULT 1);
+CREATE TABLE borrowers (borrower_id INT AUTO_INCREMENT PRIMARY KEY, nama VARCHAR(100), kelas_unit VARCHAR(50), kontak VARCHAR(50), user_id INT, FOREIGN KEY (user_id) REFERENCES users(user_id));
+CREATE TABLE categories (category_id INT AUTO_INCREMENT PRIMARY KEY, nama_kategori VARCHAR(80));
+CREATE TABLE items (item_id INT AUTO_INCREMENT PRIMARY KEY, kode_inventaris VARCHAR(30) UNIQUE, nama_alat VARCHAR(100), category_id INT, merek VARCHAR(80), lokasi VARCHAR(80), total_qty INT, kondisi VARCHAR(30), status VARCHAR(30), FOREIGN KEY (category_id) REFERENCES categories(category_id));
+CREATE TABLE loans (loan_id INT AUTO_INCREMENT PRIMARY KEY, no_transaksi VARCHAR(20) UNIQUE, borrower_id INT, tanggal_pinjam DATE, jatuh_tempo DATE NOT NULL, tujuan VARCHAR(200), status VARCHAR(20), diproses_oleh INT, FOREIGN KEY (borrower_id) REFERENCES borrowers(borrower_id), FOREIGN KEY (diproses_oleh) REFERENCES users(user_id));
+CREATE TABLE loan_details (detail_id INT AUTO_INCREMENT PRIMARY KEY, loan_id INT, item_id INT, jumlah_pinjam INT, jumlah_kembali INT DEFAULT 0, kondisi_keluar VARCHAR(30), kondisi_kembali VARCHAR(30), FOREIGN KEY (loan_id) REFERENCES loans(loan_id), FOREIGN KEY (item_id) REFERENCES items(item_id));
+CREATE TABLE activity_logs (log_id INT AUTO_INCREMENT PRIMARY KEY, user_id INT, aktivitas VARCHAR(200), waktu DATETIME DEFAULT CURRENT_TIMESTAMP, keterangan TEXT);
